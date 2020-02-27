@@ -1,7 +1,7 @@
 <template>
-  <button class="g-button" :class="{[`icon-${iconPosition}`]: true}">
-    <g-icon name="i-loading" class="loading">placeholder</g-icon>
-    <g-icon :name="icon" v-if="icon">placeholder</g-icon>
+  <button class="g-button" :class="{[`icon-${iconPosition}`]: true}" @click="$emit('click')">
+    <g-icon name="i-loading" class="loading" v-if="loading">placeholder</g-icon>
+    <g-icon :name="icon" v-if="icon && !loading">placeholder</g-icon>
     <div class="content">
       <slot/>
     </div>
@@ -16,11 +16,13 @@
   export default class Button extends Vue {
     @Prop(String) icon: string | undefined;
     @Prop({default: 'left'}) iconPosition!: string;
+    @Prop({default: false}) loading!: string;
 
     created() {
       if (this.iconPosition !== 'left' && this.iconPosition !== 'right') {
         alert('iconPosition 只允许是 left 或 right');
       }
+      console.log(this.loading);
     }
   }
 
@@ -78,12 +80,8 @@
       > .content {
         order: 1
       }
-      .loading {
-        margin-left: 0;
-        margin-right: .3em;
-        order: 1;
-      }
     }
+
     > .loading {
       animation: 1.2s spin linear infinite;
     }
