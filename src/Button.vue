@@ -20,7 +20,7 @@
 
     created() {
       if (this.iconPosition !== 'left' && this.iconPosition !== 'right') {
-        alert('iconPosition 只允许是 left 或 right');
+        console.warn('iconPosition 只允许是 left 或 right');
       }
     }
   }
