@@ -1,22 +1,25 @@
 <template>
-    <button class="g-button" :class="{[`icon-${iconPosition}`]: true}">
-      <g-icon :name="icon" v-if="icon"></g-icon>
-      <div class="content">
-        <slot/>
-      </div>
-    </button>
+  <button class="g-button" :class="{[`icon-${iconPosition}`]: true}">
+    <g-icon name="i-loading" class="loading">placeholder</g-icon>
+    <g-icon :name="icon" v-if="icon">placeholder</g-icon>
+    <div class="content">
+      <slot/>
+    </div>
+  </button>
 </template>
 
 <script lang='ts'>
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
+
   @Component
   export default class Button extends Vue {
     @Prop(String) icon: string | undefined;
     @Prop({default: 'left'}) iconPosition!: string;
+
     created() {
-      if (this.iconPosition!== 'left' && this.iconPosition!== 'right') {
-        alert('iconPosition 只允许是 left 或 right')
+      if (this.iconPosition !== 'left' && this.iconPosition !== 'right') {
+        alert('iconPosition 只允许是 left 或 right');
       }
     }
   }
@@ -24,6 +27,15 @@
 </script>
 
 <style lang='scss' scoped>
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   .g-button {
     height: var(--button-height);
     font-size: var(--font-size);
@@ -35,6 +47,7 @@
     justify-content: center;
     align-items: center;
     vertical-align: middle;
+
     &:hover {
       border-color: var(--border-color-hover);
     }
@@ -46,19 +59,33 @@
     &:focus {
       outline: none;
     }
-    &.icon-left {
-      > .content {
-        order: 2
-      }
+
+    > .content {
+      order: 2
+    }
+
+    > .icon {
+      order: 1;
+      margin-right: .3em;
+    }
+
+    &.icon-right {
       > .icon {
-        order: 1;
+        order: 2;
+        margin-left: .3em;
+      }
+
+      > .content {
+        order: 1
+      }
+      .loading {
+        margin-left: 0;
         margin-right: .3em;
+        order: 1;
       }
     }
-    &.icon-right {
-      > .icon {order: 2;
-        margin-left: .3em;}
-      > .content {order: 1}
+    > .loading {
+      animation: 1.2s spin linear infinite;
     }
   }
 
