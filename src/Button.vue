@@ -16,7 +16,12 @@
   @Component
   export default class Button extends Vue {
     @Prop(String) icon: string | undefined;
-    @Prop(String) iconPosition: string | undefined;
+    @Prop({default: 'left'}) iconPosition!: string;
+    created() {
+      if (this.iconPosition!== 'left' && this.iconPosition!== 'right') {
+        alert('iconPosition 只允许是 left 或 right')
+      }
+    }
   }
 
 </script>
@@ -44,8 +49,7 @@
     &:focus {
       outline: none;
     }
-    &.icon-undefined,
-    &.left {
+    &.icon-left {
       > .content {
         order: 2
       }
