@@ -22,7 +22,6 @@
       if (this.iconPosition !== 'left' && this.iconPosition !== 'right') {
         alert('iconPosition 只允许是 left 或 right');
       }
-      console.log(this.loading);
     }
   }
 
@@ -30,14 +29,9 @@
 
 <style lang='scss' scoped>
   @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
   }
-
   .g-button {
     height: var(--button-height);
     font-size: var(--font-size);
@@ -49,42 +43,22 @@
     justify-content: center;
     align-items: center;
     vertical-align: middle;
-
-    &:hover {
-      border-color: var(--border-color-hover);
-    }
-
-    &:active {
-      background: var(--button-active-bg);
-    }
-
-    &:focus {
-      outline: none;
-    }
-
-    > .content {
-      order: 2
-    }
-
+    &:hover {border-color: var(--border-color-hover);}
+    &:active {background: var(--button-active-bg);}
+    &:focus {outline: none;}
+    > .content {order: 2}
     > .icon {
       order: 1;
       margin-right: .3em;
     }
-
     &.icon-right {
       > .icon {
         order: 2;
         margin-left: .3em;
       }
-
-      > .content {
-        order: 1
-      }
+      > .content {order: 1}
     }
-
-    > .loading {
-      animation: 1.2s spin linear infinite;
-    }
+    > .loading {animation: 1.2s spin linear infinite;}
   }
 
 </style>
