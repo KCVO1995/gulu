@@ -1,8 +1,6 @@
 <template>
     <button class="g-button" :class="{[`icon-${iconPosition}`]: true}">
-      <svg class="icon" aria-hidden="true" v-if="icon">
-        <use :xlink:href="`#${icon}`"/>
-      </svg>
+      <g-icon :name="icon" v-if="icon"></g-icon>
       <div class="content">
         <slot/>
       </div>
@@ -12,7 +10,6 @@
 <script lang='ts'>
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
-
   @Component
   export default class Button extends Vue {
     @Prop(String) icon: string | undefined;
@@ -64,16 +61,5 @@
       > .content {order: 1}
     }
   }
-
-  .icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-  }
-
-
-
 
 </style>
