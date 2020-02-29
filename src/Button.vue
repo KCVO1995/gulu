@@ -10,9 +10,12 @@
 
 <script lang='ts'>
   import Vue from 'vue';
+  import gIcon from './Icon'
   import {Component, Prop} from 'vue-property-decorator';
 
-  @Component
+  @Component({
+    components:{gIcon}
+  })
   export default class Button extends Vue {
     @Prop(String) icon: string | undefined;
     @Prop({default: 'left'}) iconPosition!: string;
