@@ -2,6 +2,8 @@
 
 [![Build Status](https://www.travis-ci.org/KCVO1995/gulu.svg?branch=master)](https://www.travis-ci.org/KCVO1995/gulu)
 
+![npm](https://img.shields.io/npm/dw/gulu-kcvo)
+
 ## 介绍
 
 ## 开始使用
