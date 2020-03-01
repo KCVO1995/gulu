@@ -1,16 +1,20 @@
 <template>
-    <label class="wrapper">
-      <input>
-    </label>
+  <label class="wrapper" :class="{error}">
+    <input :value="value" :placeholder="placeholder" :disabled="disabled" :readonly="readonly">
+  </label>
 </template>
 
 <script lang='ts'>
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component
   export default class Input extends Vue {
-
+    @Prop(String) value: string | undefined;
+    @Prop(String) placeholder: string | undefined;
+    @Prop(Boolean) disabled: boolean | undefined;
+    @Prop(Boolean) readonly: boolean | undefined;
+    @Prop(String) error: string | undefined;
   }
 
 </script>
