@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/KCVO1995/gulu#readme",
   "dependencies": {
+    "svg.js": "^2.7.1",
     "vue": "^2.6.11",
     "vue-hot-reload-api": "^2.3.4",
     "vue-property-decorator": "^8.4.0"

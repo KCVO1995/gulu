@@ -6,6 +6,7 @@
 
 <script lang='ts'>
   import Vue from 'vue';
+  import './svg.js'
   import {Component, Prop} from 'vue-property-decorator';
 
   @Component
