@@ -1,6 +1,10 @@
 <template>
   <label class="wrapper" :class="{error}">
     <input :value="value" :placeholder="placeholder" :disabled="disabled" :readonly="readonly">
+    <template v-if="error">
+      <g-icon name="i-error" class="icon-error">placeholder</g-icon>
+      <span class="errorMessage">{{error}}</span>
+    </template>
   </label>
 </template>
 
