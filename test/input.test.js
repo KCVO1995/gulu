@@ -40,4 +40,22 @@ describe('input', () => {
       expect(errorMessage.innerHTML).to.eq('error')
     })
   })
+  describe('events', () => {
+    let vm
+    afterEach(() => {vm.$destroy()})
+    it('input,focus,blur,change事件', () => {
+      ['input', 'focus', 'blur', 'change'].forEach(eventName => {
+        vm = new Input({}).$mount()
+        const callback = sinon.fake()
+        const input = vm.$el.querySelector('input')
+        const event = new Event(eventName)
+        Object.defineProperty(event, 'target', {
+          value: {value: 'hi'}
+        })
+        vm.$on(eventName, callback)
+        input.dispatchEvent(event)
+        expect(callback).to.have.been.calledWith('hi')
+      })
+    })
+  })
 })
