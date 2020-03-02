@@ -1,5 +1,5 @@
 <template>
-  <div class="row" :style="gutterClass()">
+  <div class="row" :style="gutterClass()" :class="{['align-'+align]: align}">
     <slot/>
   </div>
 </template>
@@ -11,6 +11,7 @@
   @Component
   export default class Row extends Vue {
     @Prop(String || Number) gutter: string | number | undefined;
+    @Prop({default: 'left'}) align?: string;
 
     gutterClass() {
       const {gutter} = this;
@@ -18,7 +19,7 @@
     }
 
     mounted() {
-      this.$children.forEach(vm => {vm['gutter'] = this.gutter});
+      this.$children.forEach(vm => {vm['gutter'] = this.gutter;});
     }
   }
 </script>
@@ -26,5 +27,8 @@
 <style lang='scss' scoped>
   .row {
     display: flex;
+    &.align-left {justify-content: flex-start;}
+    &.align-center {justify-content: center;}
+    &.align-right {justify-content: flex-end;}
   }
 </style>
