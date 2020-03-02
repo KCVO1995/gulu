@@ -34,7 +34,7 @@
 <body>
 <div id="app">
   <div class="input">
-    <g-input placeholder="请输入信息" :value="value"></g-input>
+    <g-input placeholder="请输入信息" :value="value" @input="input" @change="change" @focus="focus"></g-input>
     <g-input disabled></g-input>
     <g-input readonly placeholder="请输入信息"></g-input>
     <g-input error="大哥你错了"></g-input>
