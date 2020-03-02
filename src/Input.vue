@@ -7,7 +7,7 @@
     @blur="$emit('blur', $event.target.value)"
     >
     <template v-if="error">
-      <g-icon name="i-error" class="icon-error">placeholder</g-icon>
+      <Icon name="i-error" class="icon-error">placeholder</Icon>
       <span class="errorMessage">{{error}}</span>
     </template>
   </label>
@@ -16,8 +16,11 @@
 <script lang='ts'>
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
+  import Icon from './Icon.vue';
 
-  @Component
+  @Component({
+    components:{Icon}
+  })
   export default class Input extends Vue {
     @Prop(String) value: string | undefined;
     @Prop(String) placeholder: string | undefined;
@@ -25,7 +28,6 @@
     @Prop(Boolean) readonly: boolean | undefined;
     @Prop(String) error: string | undefined;
   }
-
 </script>
 
 <style lang='scss' scoped>
