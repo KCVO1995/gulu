@@ -1,5 +1,5 @@
 <template>
-  <div class="row" :style="gutterClass()" :class="{['align-'+align]: align}">
+  <div class="row" :style="gutterStyle()" :class="{['align-'+align]: align}">
     <slot/>
   </div>
 </template>
@@ -13,7 +13,7 @@
     @Prop(String || Number) gutter: string | number | undefined;
     @Prop({default: 'left'}) align?: string;
 
-    gutterClass() {
+    gutterStyle() {
       const {gutter} = this;
       return {marginRight: -gutter / 2 + 'px', marginLeft: -gutter / 2 + 'px'};
     }
