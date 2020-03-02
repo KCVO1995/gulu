@@ -2,12 +2,12 @@ import Vue from "vue"
 import Button from "./Button"
 import Icon from "./Icon"
 import ButtonGroup from "./ButtonGroup"
-import Input from './Input'
+import Input from "./Input"
 
 Vue.component("g-button", Button)
 Vue.component("g-icon", Icon)
 Vue.component("g-button-group", ButtonGroup)
-Vue.component('g-input', Input)
+Vue.component("g-input", Input)
 new Vue({
   el: "#app",
   data() {
@@ -15,7 +15,7 @@ new Vue({
       loading1: false,
       loading2: false,
       loading3: false,
-      value: ''
+      value: ""
     }
   },
   methods: {
