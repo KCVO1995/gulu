@@ -20,15 +20,10 @@
       --border-color: #999;
       --border-color-hover: #666;
     }
-    #app {
-      margin: 20px;
-    }
-    .input {
-      margin-bottom: 20px;
-    }
-    body {
-      font-size: var(--font-size);
-    }
+    #app {margin: 20px;}
+    .input {margin-bottom: 20px;}
+    .gird {margin-top: 20px;}
+    body {font-size: var(--font-size);}
   </style>
 </head>
 <body>
@@ -47,7 +42,26 @@
     <g-button>更多</g-button>
     <g-button class="right" icon="i-right" icon-position="right">下一页</g-button>
   </g-button-group>
-  <div id="test"></div>
+  <div class="gird">
+    <g-row>
+      <g-col class="col">1</g-col>
+      <g-col class="col">2</g-col>
+    </g-row>
+    <g-row>
+      <g-col class="col">1</g-col>
+      <g-col class="col">2</g-col>
+      <g-col class="col">1</g-col>
+      <g-col class="col">2</g-col>
+    </g-row>
+    <g-row>
+      <g-col class="col">1</g-col>
+      <g-col class="col">2</g-col>
+      <g-col class="col">1</g-col>
+      <g-col class="col">2</g-col>
+      <g-col class="col">1</g-col>
+      <g-col class="col">2</g-col>
+    </g-row>
+  </div>
 </div>
 <script src="./src/app.js"></script>
 </body>
