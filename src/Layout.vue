@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout" :class="{hasSide}">
     <slot/>
   </div>
 </template>
@@ -10,6 +10,14 @@
 
   @Component
   export default class Layout extends Vue {
+    hasSide = false
+    mounted(){
+      this.$children.forEach( vm => {
+        if (vm.$options.name === 'Sider') {
+          this.hasSide = true
+        }
+      })
+    }
 
   }
 
@@ -19,6 +27,9 @@
   .layout {
     display: flex;
     flex-direction: column;
+  }
+  .hasSide {
+    flex-direction: row;
   }
 
 </style>

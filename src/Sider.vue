@@ -9,7 +9,7 @@
   import {Component} from 'vue-property-decorator';
 
   @Component
-  export default class Aside extends Vue {
+  export default class Sider extends Vue {
 
   }
 
