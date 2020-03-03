@@ -10,13 +10,14 @@
 
   @Component
   export default class Layout extends Vue {
-    hasSide = false
-    mounted(){
-      this.$children.forEach( vm => {
+    hasSide = false;
+
+    mounted() {
+      this.$children.forEach(vm => {
         if (vm.$options.name === 'Sider') {
-          this.hasSide = true
+          this.hasSide = true;
         }
-      })
+      });
     }
 
   }
@@ -27,6 +28,7 @@
   .layout {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
   }
   .hasSide {
     flex-direction: row;
