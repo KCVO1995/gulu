@@ -1,5 +1,7 @@
 <template>
-  
+  <div class="layout">
+    <slot/>
+  </div>
 </template>
 
 <script lang='ts'>
@@ -14,5 +16,9 @@
 </script>
 
 <style lang='scss' scoped>
+  .layout {
+    display: flex;
+    flex-direction: column;
+  }
 
 </style>
