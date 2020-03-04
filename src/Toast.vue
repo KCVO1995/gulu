@@ -6,11 +6,26 @@
 
 <script lang='ts'>
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component
   export default class Toast extends Vue {
+    @Prop() autoClose: boolean | number | undefined;
 
+    mounted() {
+      let {autoClose} = this;
+      if (autoClose) {
+        typeof autoClose === 'boolean' ? autoClose = 5 : autoClose;
+        setTimeout(() => {
+          this.close();
+        }, autoClose * 1000);
+      }
+    }
+
+    close() {
+      this.$el.remove();
+      this.$destroy();
+    }
   }
 
 </script>

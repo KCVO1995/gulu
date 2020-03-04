@@ -2,12 +2,12 @@ import Vue from "vue"
 import Button from "./Button"
 import ButtonGroup from "./ButtonGroup"
 import Input from "./Input"
-import Row from './Row'
-import Col from './Col'
-import Layout from './Layout'
-import Header from './Header'
-import Content from './Content'
-import Footer from './Footer'
+import Row from "./Row"
+import Col from "./Col"
+import Layout from "./Layout"
+import Header from "./Header"
+import Content from "./Content"
+import Footer from "./Footer"
 import Sider from "./Sider"
 import plugin from "./plugin"
 
@@ -37,7 +37,9 @@ new Vue({
     change(value) {console.log(value)},
     focus(value) {console.log(value)},
     showToast() {
-      this.$toast("我是message")
+      this.$toast("我是message", {
+        autoClose: true
+      })
     }
   }
 })
