@@ -8,7 +8,8 @@ export default {
       })
       toast.$slots.default = [message]
       toast.$mount()
-      document.body.appendChild(toast.$el)
+      const app = document.querySelector("#app")
+      app.appendChild(toast.$el)
     }
   }
 }

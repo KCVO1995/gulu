@@ -39,7 +39,8 @@ new Vue({
     showToast() {
       this.$toast("我是message", {
         autoClose: 500,
-        closeButton: {text: "我知道了", callback: () => {console.log("我知道了")}}
+        closeButton: {text: "我知道了", callback: () => {console.log("我知道了")}},
+        position: "middle",
       })
     }
   }
