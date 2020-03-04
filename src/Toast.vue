@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <slot/>
+    <div v-if="enableHtml" v-html="$slots.default[0]"></div>
+    <slot v-if="!enableHtml"/>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
   @Component
   export default class Toast extends Vue {
     @Prop() autoClose: boolean | number | undefined;
+    @Prop(Boolean) enableHtml: boolean | undefined;
 
     mounted() {
       let {autoClose} = this;
