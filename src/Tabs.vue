@@ -6,11 +6,16 @@
 
 <script lang='ts'>
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop, Provide} from 'vue-property-decorator';
 
   @Component
   export default class Tabs extends Vue {
+    @Prop(String || Number) selected: string | number | undefined;
+    @Provide('eventBus') eventsBus = new Vue();
 
+    mounted() {
+      this.eventsBus.$emit('update:selected', this.selected);
+    }
   }
 
 </script>

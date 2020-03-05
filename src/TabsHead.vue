@@ -11,6 +11,7 @@
   @Component
   export default class TabsHead extends Vue {
 
+
   }
 
 </script>
