@@ -1,5 +1,3 @@
-import Button from "../src/Button"
-
 const expect = chai.expect
 import Vue from "vue"
 import Toast from "../src/Toast"
@@ -36,7 +34,7 @@ describe("Toast 存在", () => {
       const strong = vm.$el.querySelector("#hi")
       expect(strong).exist
     })
-    it("接受 closeButton`", () => {
+    it("接受 closeButton`", (done) => {
       const callback = sinon.fake()
       const vm = new Toast({
         propsData: {
@@ -47,9 +45,12 @@ describe("Toast 存在", () => {
         }
       }).$mount()
       const close = vm.$el.querySelector(".close")
-      close.click()
       expect(close.textContent.trim()).to.eq("关闭")
-      expect(callback).to.have.been.called
+      setTimeout(() => {
+        close.click()
+        expect(callback).to.have.been.called
+        done()
+      })
     })
     it("接受 position", () => {
       const vm = new Toast({
