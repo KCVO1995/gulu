@@ -9,6 +9,11 @@ import Header from "./Header"
 import Content from "./Content"
 import Footer from "./Footer"
 import Sider from "./Sider"
+import Tabs from "./Tabs"
+import TabsHead from "./TabsHead"
+import TabsBody from "./TabsBody"
+import TabsItem from "./TabsItem"
+import TabsPane from "./TabsPane"
 import plugin from "./plugin"
 
 Vue.component("g-button", Button)
@@ -21,15 +26,17 @@ Vue.component("g-header", Header)
 Vue.component("g-content", Content)
 Vue.component("g-sider", Sider)
 Vue.component("g-footer", Footer)
+Vue.component("g-tabs", Tabs)
+Vue.component("g-tabs-head", TabsHead)
+Vue.component("g-tabs-body", TabsBody)
+Vue.component("g-tabs-item", TabsItem)
+Vue.component("g-tabs-pane", TabsPane)
 Vue.use(plugin)
 new Vue({
   el: "#app",
   data() {
     return {
-      loading1: false,
-      loading2: false,
-      loading3: false,
-      value: ""
+      selectedTab: "China"
     }
   },
   methods: {
