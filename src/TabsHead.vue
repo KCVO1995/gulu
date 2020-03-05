@@ -1,6 +1,9 @@
 <template>
-  <div class="head">
-    <slot/>
+  <div class="tabs-head">
+    <slot>placeholder</slot>
+    <div class="container-actions">
+      <slot name="actions"/>
+    </div>
   </div>
 </template>
 
@@ -17,7 +20,14 @@
 </script>
 
 <style lang='scss' scoped>
-  .head {
+  $tab-height: 40px;
+  .tabs-head {
     display: flex;
+    height: $tab-height;
+    justify-content: flex-start;
+    align-items: center;
+    > .container-actions {
+      margin-left: auto;
+    }
   }
 </style>
