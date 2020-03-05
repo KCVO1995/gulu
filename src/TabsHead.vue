@@ -55,7 +55,6 @@
     > .line {
       position: absolute;
       bottom: 0;
-      left: 0;
       border-bottom: 1px solid $blue;
       transition: all 350ms;
     }

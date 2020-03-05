@@ -36,7 +36,7 @@ new Vue({
   el: "#app",
   data() {
     return {
-      selectedTab: "China"
+      selectedTab: "Europe"
     }
   },
   methods: {
