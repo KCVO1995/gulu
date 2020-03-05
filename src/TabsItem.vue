@@ -1,5 +1,5 @@
 <template>
-  <div @click="onClick">
+  <div @click="onClick" :class="{active}">
     <slot/>
   </div>
 </template>
@@ -12,10 +12,11 @@
   export default class TabsItem extends Vue {
     @Prop(String || Number) name: string | number | undefined;
     @Inject('eventBus') eventBus;
+    active = false;
 
     mounted() {
-      this.eventBus.$on('update:selected', (name) => {
-        console.log(name);
+      this.eventBus.$on('update:selected', (selected) => {
+        this.active = this.name === selected;
       });
     }
 
@@ -27,5 +28,8 @@
 </script>
 
 <style lang='scss' scoped>
+  .active {
+    background: green;
+  }
 
 </style>
