@@ -1,5 +1,5 @@
 <template>
-  <div @click="showPopover" class="popover" ref="popover">
+  <div class="popover" ref="popover">
     <div v-if="visible" class="contentWrapper" ref="contentWrapper" :class="{[`position-${position}`]: true}">
       <slot name="content"/>
     </div>
@@ -16,8 +16,27 @@
   @Component
   export default class Popover extends Vue {
     @Prop({default: 'top'}) position?: string;
+    @Prop({default: 'click'}) trigger?: string;
     visible = false;
 
+    mounted() {
+      console.log(this.trigger);
+      if (this.trigger === 'click') {
+        this.$refs.popover.addEventListener('click', this.showPopover);
+      } else if (this.trigger === 'hover') {
+        this.$refs.popover.addEventListener('mouseenter', this.open);
+        this.$refs.popover.addEventListener('mouseleave', this.close);
+      }
+    }
+
+    destroyed() {
+      if (this.trigger === 'click') {
+        this.$refs.popover.removeEventListener('click', this.showPopover(e));
+      } else if (this.trigger === 'hover') {
+        this.$refs.popover.removeEventListener('mouseenter', this.open);
+        this.$refs.popover.removeEventListener('mouseleave', this.close);
+      }
+    }
 
     showPopover(e) {
       if (this.$refs.toggleWrapper.contains(e.target)) {
