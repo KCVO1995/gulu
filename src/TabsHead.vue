@@ -20,15 +20,20 @@
       this.eventBus.$on('update:selected', (selected) => {
         this.$children.forEach((child) => {
           if (child['name'] === selected) {
-            this.$nextTick(() => {
-              const {width, left} = child.$el.getBoundingClientRect();
-              this.$refs.line['style'].width = `${width}px`;
-              this.$refs.line['style'].left = `${left}px`;
-            });
+            this.positionLine(child);
           }
         });
       });
     }
+
+    positionLine(child) {
+      this.$nextTick(() => {
+        const {width, left} = child.$el.getBoundingClientRect();
+        this.$refs.line['style'].width = `${width}px`;
+        this.$refs.line['style'].left = `${left}px`;
+      });
+    }
+
 
   }
 
