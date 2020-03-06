@@ -43,9 +43,9 @@
     }
 
     onClickDocument(e) {
-      if (this.$refs.popover && this.$refs.popover === e.target) {return;}
-      if (this.$refs.toggleWrapper.contains(e.target)) {return;}
-      if (this.$refs.contentWrapper.contains(e.target)) {return;}
+      const {popover, contentWrapper} = this.$refs;
+      if (popover && popover === e.target || popover.contains(e.target)) {return;}
+      if (contentWrapper && contentWrapper === e.target || contentWrapper.contains(e.target)) {return;}
       console.log('点击document关闭了');
       this.close();
     }
