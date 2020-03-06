@@ -3,7 +3,7 @@
     <div v-if="visible" class="contentWrapper" ref="contentWrapper" :class="{[`position-${position}`]: true}">
       <slot name="content"/>
     </div>
-    <span class="toggleWrapper" ref="toggleWrapper">
+    <span class="triggerWrapper" ref="toggleWrapper">
       <slot/>
     </span>
   </div>
@@ -80,7 +80,7 @@
   .popover {
     position: relative;
     display: inline-block;
-    > .toggleWrapper {
+    > .triggerWrapper {
       display: inline-block;
     }
   }
