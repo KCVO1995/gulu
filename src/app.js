@@ -50,6 +50,9 @@ new Vue({
         autoClose: 500,
         closeButton: {text: "我知道了", callback: () => {console.log("我知道了")}},
       })
+    },
+    click() {
+      console.log("用户的傻逼事件")
     }
   }
 })
