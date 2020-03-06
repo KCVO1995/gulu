@@ -20,7 +20,6 @@ const createToast = (message, options) => {
   toast.$slots.default = [message]
   toast.$mount()
   toast.$on("close", () => {currentToast = null})
-  const app = document.querySelector("#app")
-  app.appendChild(toast.$el)
+  document.body.appendChild(toast.$el)
   return toast
 }
