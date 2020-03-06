@@ -1,6 +1,6 @@
 <template>
   <div @click="showPopover" class="popover" ref="popover">
-    <div v-if="visible" class="contentWrapper" ref="contentWrapper">
+    <div v-if="visible" class="contentWrapper" ref="contentWrapper" :class="{[`position-${position}`]: true}">
       <slot name="content"/>
     </div>
     <span class="toggleWrapper" ref="toggleWrapper">
@@ -11,11 +11,13 @@
 
 <script lang='ts'>
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component
   export default class Popover extends Vue {
+    @Prop({default: 'top'}) position?: string;
     visible = false;
+
 
     showPopover(e) {
       if (this.$refs.toggleWrapper.contains(e.target)) {
@@ -56,8 +58,15 @@
       const toggleWrapper = this.$refs.toggleWrapper as Node;
       document.body.appendChild(contentWrapper);
       const {top, left, width, height} = toggleWrapper.getBoundingClientRect();
-      contentWrapper['style'].top = top + scrollY + 'px';
-      contentWrapper['style'].left = left + scrollX + 'px';
+      const {height: contentHeight} = contentWrapper.getBoundingClientRect();
+      const position = {
+        top: {top: top + scrollY, left: left + scrollX},
+        bottom: {top: top + height + scrollY, left: left + scrollX},
+        left: {top: top + scrollY - (contentHeight - height) / 2, left: left + scrollX},
+        right: {top: top + scrollY - (contentHeight - height) / 2, left: left + width + scrollX},
+      };
+      contentWrapper['style'].top = position[this.position].top + 'px';
+      contentWrapper['style'].left = position[this.position].left + 'px';
     }
   }
 
@@ -66,6 +75,8 @@
 <style lang='scss'>
   $border-color: #333;
   $border-radius: 4px;
+  $max-width: 20em;
+  $popover-bg: white;
   .popover {
     position: relative;
     display: inline-block;
@@ -78,28 +89,77 @@
     border: 1px solid $border-color;
     border-radius: $border-radius;
     filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
-    background: white;
-    transform: translateY(-100%);
-    margin-top: -10px;
+    background: $popover-bg;
     padding: .5em 1em;
-    max-width: 20em;
+    max-width: $max-width;
     word-break: break-all;
     &::before, &::after {
       content: '';
       display: block;
-      border: 10px solid transparent;
       width: 0;
       height: 0;
       position: absolute;
-      left: 10px;
+      border: 10px solid transparent;
     }
-    &::before {
-      border-top-color: black;
-      top: 100%;
+    &.position-top {
+      transform: translateY(-100%);
+      margin-top: -10px;
+      &::before, &::after {
+        left: 10px;
+      }
+      &::before {
+        border-top-color: $border-color;
+        top: 100%;
+      }
+      &::after {
+        border-top-color: $popover-bg;
+        top: calc(100% - 1px);
+      }
     }
-    &::after {
-      border-top-color: white;
-      top: calc(100% - 1px);
+    &.position-bottom {
+      margin-top: 10px;
+      &::before, &::after {
+        left: 10px;
+      }
+      &::before {
+        border-bottom-color: $border-color;
+        bottom: 100%;
+      }
+      &::after {
+        border-bottom-color: $popover-bg;
+        bottom: calc(100% - 1px);
+      }
+    }
+    &.position-left {
+      transform: translateX(-100%);
+      margin-left: -10px;
+      &::before, &::after {
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      &::before {
+        border-left-color: $border-color;
+      }
+      &::after {
+        border-left-color: $popover-bg;
+        left: calc(100% - 1px)
+      }
+    }
+    &.position-right {
+      margin-left: 10px;
+      &::before, &::after {
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      &::before {
+        border-right-color: $border-color;
+      }
+      &::after {
+        border-right-color: $popover-bg;
+        right: calc(100% - 1px)
+      }
     }
   }
 
