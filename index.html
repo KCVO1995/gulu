@@ -30,7 +30,7 @@
 <body>
 <div id="app">
   <div @click="click" style="margin-left: 200px; margin-top: 200px">
-    <g-popover trigger="hover">
+    <g-popover trigger="hover" v-if="abc">
       <template #content>
         我是一个可爱的popover
       </template>

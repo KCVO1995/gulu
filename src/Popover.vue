@@ -17,57 +17,66 @@
   export default class Popover extends Vue {
     @Prop({default: 'top'}) position?: string;
     @Prop({default: 'click'}) trigger?: string;
+    hover = false;
     visible = false;
 
     mounted() {
-      console.log(this.trigger);
       if (this.trigger === 'click') {
         this.$refs.popover.addEventListener('click', this.showPopover);
       } else if (this.trigger === 'hover') {
         this.$refs.popover.addEventListener('mouseenter', this.open);
-        this.$refs.popover.addEventListener('mouseleave', this.close);
+        this.$refs.popover.addEventListener('mouseleave', this.mouseleave);
       }
     }
 
-    destroyed() {
+    beforeDestroy() {
       if (this.trigger === 'click') {
         this.$refs.popover.removeEventListener('click', this.showPopover(e));
       } else if (this.trigger === 'hover') {
         this.$refs.popover.removeEventListener('mouseenter', this.open);
-        this.$refs.popover.removeEventListener('mouseleave', this.close);
+        this.$refs.popover.removeEventListener('mouseleave', this.mouseleave);
       }
     }
 
     showPopover(e) {
       if (this.$refs.toggleWrapper.contains(e.target)) {
-        if (this.visible) {
-          this.close();
-        } else {
-          this.open();
-        }
+        if (this.visible) {this.close();} else {this.open();}
       }
     }
 
     open() {
-      console.log('弹出了');
       this.visible = true;
       this.$nextTick(() => {
+        if (this.trigger === 'hover') {
+          this.$refs.contentWrapper.addEventListener('mouseenter', this.over);
+          this.$refs.contentWrapper.addEventListener('mouseleave', this.close);
+        }
         this.positionContent();
         document.addEventListener('click', this.onClickDocument);
       });
     }
 
+    over() {this.hover = true;}
+
     close() {
-      console.log('使用close关闭了');
       this.visible = false;
       document.removeEventListener('click', this.onClickDocument);
+    }
+
+    mouseleave(e) {
+      setTimeout(() => {
+        if (this.hover) {
+          this.hover = false;
+          return;
+        }
+        this.close();
+      }, 100);
     }
 
     onClickDocument(e) {
       const {popover, contentWrapper} = this.$refs;
       if (popover && popover === e.target || popover.contains(e.target)) {return;}
       if (contentWrapper && contentWrapper === e.target || contentWrapper.contains(e.target)) {return;}
-      console.log('点击document关闭了');
       this.close();
     }
 
@@ -79,8 +88,7 @@
       const {top, left, width, height} = toggleWrapper.getBoundingClientRect();
       const {height: contentHeight} = contentWrapper.getBoundingClientRect();
       const position = {
-        top: {top: top + scrollY, left: left + scrollX},
-        bottom: {top: top + height + scrollY, left: left + scrollX},
+        top: {top: top + scrollY, left: left + scrollX}, bottom: {top: top + height + scrollY, left: left + scrollX},
         left: {top: top + scrollY - (contentHeight - height) / 2, left: left + scrollX},
         right: {top: top + scrollY - (contentHeight - height) / 2, left: left + width + scrollX},
       };

@@ -38,8 +38,14 @@ new Vue({
   el: "#app",
   data() {
     return {
-      selectedTab: "Europe"
+      selectedTab: "Europe",
+      abc: true
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.abc = false
+    }, 5000)
   },
   methods: {
     input(value) {console.log(value)},
