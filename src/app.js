@@ -43,13 +43,8 @@ new Vue({
   data() {
     return {
       selectedTab: "Europe",
-      abc: true
+      selected: ["标题一"]
     }
-  },
-  mounted() {
-    setTimeout(() => {
-      this.abc = false
-    }, 5000)
   },
   methods: {
     input(value) {console.log(value)},

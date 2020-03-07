@@ -1,6 +1,6 @@
 <template>
-  <div class="collapse-item" @click="toggle">
-    <div class="title" :class="{itemOpen: open}">
+  <div class="collapse-item">
+    <div class="title" :class="{itemOpen: open}" @click="toggle">
       {{title}}
     </div>
     <div class="content" v-if="open">
@@ -20,20 +20,17 @@
     open = false;
 
     mounted() {
-      this.eventBus.$on('update:selected', (title) => {
-        if (this.title !== title) {
-          this.open = false;
-        }
+      this.eventBus.$on('update:selectedArray', selectedArray => {
+        this.open = selectedArray.indexOf(this.title) >= 0;
       });
+
     }
 
     toggle() {
       if (this.open) {
-        this.open = false;
+        this.eventBus && this.eventBus.$emit('update:removeSelectedArray', this.title);
       } else {
-        this.open = true;
-        console.log('打开了');
-        this.eventBus.$emit('update:selected', this.title);
+        this.eventBus && this.eventBus.$emit('update:addSelectedArray', this.title);
       }
     }
   }
