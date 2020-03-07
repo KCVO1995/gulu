@@ -11,15 +11,30 @@
 
 <script lang='ts'>
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component, Inject, Prop} from 'vue-property-decorator';
 
   @Component
   export default class CollapseItem extends Vue {
+    @Inject() eventBus;
     @Prop(String) title: string | undefined;
     open = false;
 
+    mounted() {
+      this.eventBus.$on('update:selected', (title) => {
+        if (this.title !== title) {
+          this.open = false;
+        }
+      });
+    }
+
     toggle() {
-      this.open = !this.open;
+      if (this.open) {
+        this.open = false;
+      } else {
+        this.open = true;
+        console.log('打开了');
+        this.eventBus.$emit('update:selected', this.title);
+      }
     }
   }
 

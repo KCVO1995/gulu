@@ -6,10 +6,12 @@
 
 <script lang='ts'>
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop, Provide} from 'vue-property-decorator';
 
   @Component
   export default class collapse extends Vue {
+    @Prop({default: 'false'}) single?: boolean;
+    @Provide('eventBus') eventBus = new Vue();
 
   }
 
