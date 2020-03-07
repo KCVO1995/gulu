@@ -31,7 +31,7 @@
 
     beforeDestroy() {
       if (this.trigger === 'click') {
-        this.$refs.popover.removeEventListener('click', this.showPopover(e));
+        this.$refs.popover.removeEventListener('click', this.showPopover);
       } else if (this.trigger === 'hover') {
         this.$refs.popover.removeEventListener('mouseenter', this.open);
         this.$refs.popover.removeEventListener('mouseleave', this.mouseleave);
