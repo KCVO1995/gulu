@@ -15,7 +15,7 @@
 
   @Component
   export default class Popover extends Vue {
-    @Prop({default: 'top'}) position?: string;
+    @Prop({default: 'top'}) position?: 'top' | 'bottom' | 'left' | 'right';
     @Prop({default: 'click'}) trigger?: string;
     hover = false;
     visible = false;
@@ -63,7 +63,7 @@
       document.removeEventListener('click', this.onClickDocument);
     }
 
-    mouseleave(e) {
+    mouseleave() {
       setTimeout(() => {
         if (this.hover) {
           this.hover = false;
