@@ -1,18 +1,21 @@
 <template>
   <svg class="icon" aria-hidden="true">
-    <use :xlink:href="`#${name}`"/>
+    <use :xlink:href="`#i-${name}`"/>
   </svg>
 </template>
 
 <script lang='ts'>
-  import Vue from 'vue';
-  import './svg.js'
-  import {Component, Prop} from 'vue-property-decorator';
-
-  @Component
-  export default class Icon extends Vue {
-    @Prop(String) name: string | undefined;
-  }
+  // import Vue from 'vue';
+  import './svg.js';
+  // import {Component, Prop} from 'vue-property-decorator';
+  //
+  // @Component
+  // export default class Icon extends Vue {
+  //   @Prop(String) name: string | undefined;
+  // }
+  export default {
+    props: {name: {type: String}}
+  };
 
 </script>
 

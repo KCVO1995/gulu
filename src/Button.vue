@@ -1,6 +1,6 @@
 <template>
   <button class="g-button" :class="{[`icon-${iconPosition}`]: true}" @click="$emit('click')">
-    <g-icon name="i-loading" class="loading" v-if="loading">placeholder</g-icon>
+    <g-icon name="loading" class="loading" v-if="loading">placeholder</g-icon>
     <g-icon :name="icon" v-if="icon && !loading">placeholder</g-icon>
     <div class="content">
       <slot/>
@@ -8,22 +8,41 @@
   </button>
 </template>
 
-<script lang='ts'>
-  import Vue from 'vue';
-  import gIcon from './Icon';
-  import {Component, Prop} from 'vue-property-decorator';
+<script>
+  // import Vue from 'vue';
+  // import {Component, Prop} from 'vue-property-decorator';
+  //
+  // @Component({
+  //   components: {gIcon}
+  // })
+  // export default class Button extends Vue {
+  //   @Prop(String) icon: string | undefined;
+  //   @Prop({default: 'left'}) iconPosition!: string;
+  //   @Prop({default: false}) loading!: string;
+  //
+  //   created() {
+  //     if (this.iconPosition !== 'left' && this.iconPosition !== 'right') {
+  //       console.warn('iconPosition 只允许是 left 或 right');
+  //     }
+  //   }
+  // }
+  import Icon from "./Icon.vue"
 
-  @Component({
-    components: {gIcon}
-  })
-  export default class Button extends Vue {
-    @Prop(String) icon: string | undefined;
-    @Prop({default: 'left'}) iconPosition!: string;
-    @Prop({default: false}) loading!: string;
-
-    created() {
-      if (this.iconPosition !== 'left' && this.iconPosition !== 'right') {
-        console.warn('iconPosition 只允许是 left 或 right');
+  export default {
+    name: "GuluButton",
+    components: {"g-icon": Icon},
+    props: {
+      icon: {},
+      loading: {
+        type: Boolean,
+        default: false
+      },
+      iconPosition: {
+        type: String,
+        default: "left",
+        validator(value) {
+          return value === "left" || value === "right"
+        }
       }
     }
   }
