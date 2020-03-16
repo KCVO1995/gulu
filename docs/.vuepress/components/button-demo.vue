@@ -8,7 +8,6 @@
     <g-button icon="setting">默认按钮</g-button>
     <g-button :loading="true">默认按钮</g-button>
     <g-button disabled>默认按钮</g-button>
-
     <p>
       <strong>代码</strong>
     </p>
@@ -16,7 +15,7 @@
   </div>
 </template>
 <script>
-  import Button from "../../../src/button"
+  import Button from "../../../src/button/Button"
 
   export default {
     components: {

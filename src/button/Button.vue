@@ -9,27 +9,10 @@
 </template>
 
 <script>
-  // import Vue from 'vue';
-  // import {Component, Prop} from 'vue-property-decorator';
-  //
-  // @Component({
-  //   components: {gIcon}
-  // })
-  // export default class Button extends Vue {
-  //   @Prop(String) icon: string | undefined;
-  //   @Prop({default: 'left'}) iconPosition!: string;
-  //   @Prop({default: false}) loading!: string;
-  //
-  //   created() {
-  //     if (this.iconPosition !== 'left' && this.iconPosition !== 'right') {
-  //       console.warn('iconPosition 只允许是 left 或 right');
-  //     }
-  //   }
-  // }
-  import Icon from "./Icon.vue"
+  import Icon from "../Icon.vue"
 
   export default {
-    name: "GuluButton",
+    name: "FanButton",
     components: {"g-icon": Icon},
     props: {
       icon: {},
