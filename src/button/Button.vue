@@ -1,7 +1,7 @@
 <template>
   <button class="g-button" :class="{[`icon-${iconPosition}`]: true}" @click="$emit('click')">
-    <g-icon name="loading" class="loading" v-if="loading">placeholder</g-icon>
-    <g-icon :name="icon" v-if="icon && !loading">placeholder</g-icon>
+    <c-icon icon="loading" class="loading" v-if="loading">placeholder</c-icon>
+    <c-icon :icon="icon" v-if="icon && !loading">placeholder</c-icon>
     <div class="content">
       <slot/>
     </div>
@@ -13,7 +13,7 @@
 
   export default {
     name: "FanButton",
-    components: {"g-icon": Icon},
+    components: {"c-icon": Icon},
     props: {
       icon: {},
       loading: {
