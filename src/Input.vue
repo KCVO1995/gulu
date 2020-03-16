@@ -14,20 +14,19 @@
 </template>
 
 <script lang='ts'>
-  import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
   import Icon from './Icon.vue';
 
-  @Component({
-    components:{Icon}
-  })
-  export default class Input extends Vue {
-    @Prop(String) value: string | undefined;
-    @Prop(String) placeholder: string | undefined;
-    @Prop(Boolean) disabled: boolean | undefined;
-    @Prop(Boolean) readonly: boolean | undefined;
-    @Prop(String) error: string | undefined;
-  }
+  export default {
+    components: {Icon},
+    name: 'ClockInput',
+    props: {
+      value: {type: String},
+      placeholder: {type: String},
+      disabled: {type: Boolean, default: false},
+      readonly: {type: Boolean, default: false},
+      error: {type: String}
+    }
+  };
 </script>
 
 <style lang='scss' scoped>
