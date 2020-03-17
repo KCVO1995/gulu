@@ -8,48 +8,66 @@
   </div>
 </template>
 
-<script lang='ts'>
-  import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
-
-  @Component
-  export default class Toast extends Vue {
-    @Prop() autoClose: boolean | number | undefined;
-    @Prop(Boolean) enableHtml: boolean | undefined;
-    @Prop(Object) closeButton: Object | undefined;
-    @Prop({default: 'top'}) position: string;
-
-    mounted() {
-      this.execAutoClose();
-      if (this.closeButton) {this.updatedStyle();}
-    }
-
-    execAutoClose() {
-      let {autoClose} = this;
-      if (autoClose) {
-        typeof autoClose === 'boolean' ? autoClose = 5 : autoClose;
-        setTimeout(() => {
-          this.close();
-        }, autoClose * 1000);
+<script>
+  export default {
+    name: "ClockToast",
+    props: {
+      autoClose: {
+        type: [Boolean, Number],
+        default: 5,
+        validator(value) {
+          return value === false || typeof value === "number"
+        }
+      },
+      closeButton: {
+        type: Object,
+        default() {
+          return {
+            test: "关闭", callback: undefined
+          }
+        }
+      },
+      enableHtml: {
+        type: Boolean,
+        default: false
+      },
+      position: {
+        type: String,
+        default: "top",
+        validator(value) {
+          return ["top", "bottom", "middle"].indexOf(value) >= 0
+        }
       }
-    }
-
-    updatedStyle() {
-      this.$nextTick(() => {
-        this.$refs.closeHeight['style'].height = `${this.$refs.container.getBoundingClientRect().height}px`;
-      });
-    }
-
-    onClickClose() {
-      const {callback} = this.closeButton;
-      callback && callback(this);
-      this.close();
-    }
-
-    close() {
-      this.$el.remove();
-      this.$emit('close');
-      this.$destroy();
+    },
+    mounted() {
+      this.execAutoClose()
+      if (this.closeButton) {this.updatedStyle()}
+    },
+    methods: {
+      execAutoClose() {
+        let {autoClose} = this
+        if (autoClose) {
+          typeof autoClose === "boolean" ? autoClose = 5 : autoClose
+          setTimeout(() => {
+            this.close()
+          }, autoClose * 1000)
+        }
+      },
+      updatedStyle() {
+        this.$nextTick(() => {
+          this.$refs.closeHeight["style"].height = `${this.$refs.container.getBoundingClientRect().height}px`
+        })
+      },
+      onClickClose() {
+        const {callback} = this.closeButton
+        callback && callback(this)
+        this.close()
+      },
+      close() {
+        this.$el.remove()
+        this.$emit("close")
+        this.$destroy()
+      }
     }
   }
 

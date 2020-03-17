@@ -10,10 +10,11 @@ describe("Toast 存在", () => {
     expect(Toast).exist
   })
   describe("props", () => {
+    const Constructor = Vue.extend(Toast)
     it("接受 autoClose", (done) => {
       const div = document.createElement("div")
       document.body.appendChild(div)
-      const vm = new Toast({
+      const vm = new Constructor({
         propsData: {
           autoClose: 1
         }
@@ -24,7 +25,7 @@ describe("Toast 存在", () => {
       })
     })
     it("接受 enableHtml`", () => {
-      const vm = new Toast({
+      const vm = new Constructor({
         propsData: {
           enableHtml: true
         }
@@ -36,7 +37,7 @@ describe("Toast 存在", () => {
     })
     it("接受 closeButton`", (done) => {
       const callback = sinon.fake()
-      const vm = new Toast({
+      const vm = new Constructor({
         propsData: {
           closeButton: {
             text: "关闭",
@@ -53,7 +54,7 @@ describe("Toast 存在", () => {
       })
     })
     it("接受 position", () => {
-      const vm = new Toast({
+      const vm = new Constructor({
         propsData: {
           position: "middle"
         }
