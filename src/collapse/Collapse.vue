@@ -12,7 +12,7 @@
         type: Boolean,
         default: false
       },
-      selectedArray: {type: Array,},
+      selected: {type: Array,},
     },
     data() {
       return {
@@ -24,37 +24,37 @@
     },
 
     mounted() {
-      this.eventBus.$emit("update:selectedArray", this.selectedArray)
+      this.eventBus.$emit("update:selected", this.selected)
       this.add()
       this.remove()
     },
 
     methods: {
       addSelected(title) {
-        let selectedArrayCopy = JSON.parse(JSON.stringify(this.selectedArray))
-        if (this.single) {selectedArrayCopy = [title]} else {selectedArrayCopy.push(title)}
-        return selectedArrayCopy
+        let selectedCopy = JSON.parse(JSON.stringify(this.selected))
+        if (this.single) {selectedCopy = [title]} else {selectedCopy.push(title)}
+        return selectedCopy
       },
 
       add() {
-        this.eventBus.$on("update:addSelectedArray", (title) => {
-          const selectedArrayCopy = this.addSelected(title)
-          this.emit(selectedArrayCopy)
+        this.eventBus.$on("update:addSelected", (title) => {
+          const selectedCopy = this.addSelected(title)
+          this.emit(selectedCopy)
         })
       },
 
       remove() {
-        this.eventBus.$on("update:removeSelectedArray", (title) => {
-          let selectedArrayCopy = JSON.parse(JSON.stringify(this.selectedArray))
-          const index = selectedArrayCopy.indexOf(title)
-          selectedArrayCopy.splice(index, 1)
-          this.emit(selectedArrayCopy)
+        this.eventBus.$on("update:removeSelected", (title) => {
+          let selectedCopy = JSON.parse(JSON.stringify(this.selected))
+          const index = selectedCopy.indexOf(title)
+          selectedCopy.splice(index, 1)
+          this.emit(selectedCopy)
         })
       },
 
-      emit(selectedArrayCopy) {
-        this.$emit("update:selectedArray", selectedArrayCopy)
-        this.eventBus.$emit("update:selectedArray", selectedArrayCopy)
+      emit(selectedCopy) {
+        this.$emit("update:selected", selectedCopy)
+        this.eventBus.$emit("update:selected", selectedCopy)
       }
     },
   }

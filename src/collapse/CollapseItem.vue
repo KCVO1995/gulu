@@ -25,17 +25,17 @@
     },
 
     mounted() {
-      this.eventBus.$on("update:selectedArray", selectedArray => {
-        this.open = selectedArray.indexOf(this.title) >= 0
+      this.eventBus.$on("update:selectedArray", selected => {
+        this.open = selected.indexOf(this.title) >= 0
       })
     },
 
     methods: {
       toggle() {
         if (this.open) {
-          this.eventBus && this.eventBus.$emit("update:removeSelectedArray", this.title)
+          this.eventBus && this.eventBus.$emit("update:removeSelected", this.title)
         } else {
-          this.eventBus && this.eventBus.$emit("update:addSelectedArray", this.title)
+          this.eventBus && this.eventBus.$emit("update:addSelected", this.title)
         }
       }
     }
