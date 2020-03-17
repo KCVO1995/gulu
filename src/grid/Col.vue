@@ -1,48 +1,60 @@
 <template>
-  <div class="col" :class="colClass()" :style="gutterStyle()">
+  <div class="col" :class="colClass" :style="gutterStyle">
     <div style="border: 1px solid green;height: 100px;">
       <slot/>
     </div>
   </div>
 </template>
 
-<script lang='ts'>
-  import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+<script>
+  let validator = (value) => {
+    let keys = Object.keys(value)
+    let valid = true
+    keys.forEach(key => {
+      if (!["span", "offset"].indexOf(key)) {valid = false}
+    })
+    return valid
+  }
 
-  @Component
-  export default class Col extends Vue {
-    @Prop(String || Number) span: string | number | undefined;
-    @Prop(String || Number) offset: string | number | undefined;
-    @Prop(Object) ipad: object | undefined;
-    @Prop(Object) narrowPc: object | undefined;
-    @Prop(Object) pc: object | undefined;
-    @Prop(Object) widePc: object | undefined;
-    gutter = 0;
+  export default {
+    name: "ClockCol",
+    props: {
+      span: {type: [Number, String]},
+      offset: {type: [Number, String]},
+      ipad: {type: Object, validator},
+      narrowPc: {type: Object, validator},
+      pc: {type: Object, validator},
+      widePc: {type: Object, validator},
+    },
+    data() {
+      return {gutter: 0}
+    },
+    computed: {
+      gutterStyle() {
+        const {gutter} = this
+        return {paddingRight: gutter / 2 + "px", paddingLeft: gutter / 2 + "px"}
+      },
+      colClass() {
+        const {span, offset, ipad, narrowPc, pc, widePc} = this
+        const {createClasses} = this
+        return [
+          ...createClasses({span, offset}),
+          ...createClasses(ipad, "ipad-"),
+          ...createClasses(narrowPc, "narrow-pc-"),
+          ...createClasses(pc, "pc-"),
+          ...createClasses(widePc, "wide-pc-"),
+        ]
+      },
+    },
+    methods: {
+      createClasses(obj, str = "") {
+        if (!obj) {return []}
+        let array = []
+        if (obj.span) { array.push(`col-${str}${obj.span}`) }
+        if (obj.offset) { array.push(`offset-${str}${obj.offset}`) }
+        return array
+      },
 
-    gutterStyle() {
-      const {gutter} = this;
-      return {paddingRight: gutter / 2 + 'px', paddingLeft: gutter / 2 + 'px'};
-    }
-
-    createClasses(obj, str = '') {
-      if (!obj) {return [];}
-      let array = [];
-      if (obj.span) { array.push(`col-${str}${obj.span}`); }
-      if (obj.offset) { array.push(`offset-${str}${obj.offset}`); }
-      return array;
-    }
-
-    colClass() {
-      const {span, offset, ipad, narrowPc, pc, widePc} = this;
-      const {createClasses} = this;
-      return [
-        ...createClasses({span, offset}),
-        ...createClasses(ipad, 'ipad-'),
-        ...createClasses(narrowPc, 'narrow-pc-'),
-        ...createClasses(pc, 'pc-'),
-        ...createClasses(widePc, 'wide-pc-'),
-      ];
     }
   }
 

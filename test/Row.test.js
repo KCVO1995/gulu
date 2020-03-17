@@ -1,7 +1,7 @@
 const expect = chai.expect
 import Vue from "vue"
-import Row from "../src/Row"
-import Col from "../src/Col"
+import Row from "../src/grid/Row"
+import Col from "../src/grid/Col"
 
 Vue.config.productionTip = false
 Vue.config.devtools = false
@@ -11,7 +11,7 @@ describe("Row", () => {
     expect(Row).exist
   })
   it("接受 gutter 属性", (done) => {
-    Vue.component('g-row', Row)
+    Vue.component("g-row", Row)
     Vue.component('g-col', Col)
     const div = document.createElement('div')
     document.body.appendChild(div)
@@ -37,9 +37,10 @@ describe("Row", () => {
     })
   })
   it("接受 align 属性", () => {
-    const div = document.createElement('div')
+    const Constructor = Vue.extend(Row)
+    const div = document.createElement("div")
     document.body.appendChild(div)
-    const vm = new Row({propsData: {align: 'right'}}).$mount(div)
+    const vm = new Constructor({propsData: {align: "right"}}).$mount(div)
     expect(getComputedStyle(vm.$el).justifyContent).to.eq('flex-end')
     vm.$el.remove()
     vm.$destroy()

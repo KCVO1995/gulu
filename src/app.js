@@ -2,8 +2,8 @@ import Vue from "vue"
 import Button from "./button/Button"
 import ButtonGroup from "./button/ButtonGroup"
 import Input from "./Input"
-import Row from "./Row"
-import Col from "./Col"
+import Row from "./grid/Row"
+import Col from "./grid/Col"
 import Layout from "./Layout"
 import Header from "./Header"
 import Content from "./Content"
@@ -19,11 +19,11 @@ import Collapse from "./Collapse"
 import CollapseItem from "./CollapseItem"
 import plugin from "./plugin"
 
-Vue.component("g-button", Button)
-Vue.component("g-button-group", ButtonGroup)
-Vue.component("g-input", Input)
-Vue.component("g-row", Row)
-Vue.component("g-col", Col)
+Vue.component("c-button", Button)
+Vue.component("c-button-group", ButtonGroup)
+Vue.component("c-input", Input)
+Vue.component("c-row", Row)
+Vue.component("c-col", Col)
 Vue.component("g-layout", Layout)
 Vue.component("g-header", Header)
 Vue.component("g-content", Content)
