@@ -21,11 +21,6 @@
       },
       closeButton: {
         type: Object,
-        default() {
-          return {
-            test: "关闭", callback: undefined
-          }
-        }
       },
       enableHtml: {
         type: Boolean,
@@ -98,6 +93,7 @@
     &.position-top {top: 0;animation: slide-down $animation-duration;}
     &.position-middle {top: 50%;transform: translate(-50%, -50%);animation: fade $animation-duration;}
     &.position-bottom {bottom: 0;animation: slide-up $animation-duration;}
+    z-index: 20;
   }
   .message {padding: 0.8em 16px 0.8em 16px;}
   .close {

@@ -1,20 +1,21 @@
 import Toast from "./Toast"
 
 let currentToast
+
 export default {
   install(Vue) {
     Vue.prototype.$toast = function (message, options) {
       if (currentToast) {
-        console.log(2)
         currentToast.close()
       }
-      currentToast = createToast(message, options)
+      currentToast = createToast(Vue, message, options)
     }
   }
 }
 
-const createToast = (message, options) => {
-  const toast = new Toast({
+const createToast = (Vue, message, options) => {
+  const Constructor = Vue.extend(Toast)
+  const toast = new Constructor({
     propsData: options
   })
   toast.$slots.default = [message]
