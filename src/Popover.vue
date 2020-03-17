@@ -24,7 +24,7 @@
         type: String,
         default: "click",
         validator(value) {
-          return ["click", "default"].indexOf(value) >= 0
+          return ["click", "hover"].indexOf(value) >= 0
         }
       }
     },

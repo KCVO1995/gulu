@@ -72,6 +72,12 @@
     </c-layout>
   </c-layout>
   <c-button @click="showToast">xxx</c-button>
+  <c-popover>
+    <template v-slot:content>
+      <div>这是气泡卡片的内容</div>
+    </template>
+    <c-button>弹出信息</c-button>
+  </c-popover>
 </div>
 <script src="./src/app.js"></script>
 </body>
