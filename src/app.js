@@ -4,11 +4,11 @@ import ButtonGroup from "./button/ButtonGroup"
 import Input from "./Input"
 import Row from "./grid/Row"
 import Col from "./grid/Col"
-import Layout from "./Layout"
-import Header from "./Header"
-import Content from "./Content"
-import Footer from "./Footer"
-import Sider from "./Sider"
+import Layout from "./layout/Layout"
+import Header from "./layout/Header"
+import Content from "./layout/Content"
+import Footer from "./layout/Footer"
+import Sider from "./layout/Sider"
 import Tabs from "./Tabs"
 import TabsHead from "./TabsHead"
 import TabsBody from "./TabsBody"
@@ -24,11 +24,11 @@ Vue.component("c-button-group", ButtonGroup)
 Vue.component("c-input", Input)
 Vue.component("c-row", Row)
 Vue.component("c-col", Col)
-Vue.component("g-layout", Layout)
-Vue.component("g-header", Header)
-Vue.component("g-content", Content)
-Vue.component("g-sider", Sider)
-Vue.component("g-footer", Footer)
+Vue.component("c-layout", Layout)
+Vue.component("c-header", Header)
+Vue.component("c-content", Content)
+Vue.component("c-sider", Sider)
+Vue.component("c-footer", Footer)
 Vue.component("g-tabs", Tabs)
 Vue.component("g-tabs-head", TabsHead)
 Vue.component("g-tabs-body", TabsBody)

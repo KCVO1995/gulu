@@ -21,8 +21,37 @@
       --border-color: #999;
       --border-color-hover: #666;
     }
+
     #app {}
+
     body {font-size: var(--font-size);}
+
+    .container {
+      height: 200px;
+      color: #fff;
+      font-size: 1.3em;
+    }
+
+    .sider, .content, .footer, .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .sider {
+      width: 20%;
+      background-color: #71c9ce;
+    }
+
+    .content {
+      background-color: #cbf1f5;
+      color: #71c9ce;
+    }
+
+    .header, .footer {
+      background-color: #1fab89;
+      height: 50px;
+    }
   </style>
 </head>
 <body>
@@ -34,6 +63,14 @@
   <!--      <g-collapse-item title="标题三">我是妩媚的内容三</g-collapse-item>-->
   <!--    </g-collapse>-->
   <!--  </div>-->
+  <c-layout class="container">
+    <c-sider class="sider">sider</c-sider>
+    <c-layout>
+      <c-header class="header">header</c-header>
+      <c-content class="content">content</c-content>
+      <c-footer class="footer">footer</c-footer>
+    </c-layout>
+  </c-layout>
 </div>
 <script src="./src/app.js"></script>
 </body>
