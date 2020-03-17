@@ -6,7 +6,7 @@
           <c-button>设置</c-button>
         </template>
         <c-tabs-item name="anime">
-          <hai-icon name="likes"></hai-icon>
+          <c-icon icon="setting"/>
           动漫
         </c-tabs-item>
         <c-tabs-item name="finance" disabled>财经</c-tabs-item>
@@ -31,6 +31,8 @@
   import TabsBody from "../../../../src/tabs/TabsBody"
   import TabsItem from "../../../../src/tabs/TabsItem"
   import TabsPane from "../../../../src/tabs/TabsPane"
+  import Button from "../../../../src/button/Button"
+  import Icon from "../../../../src/Icon"
 
 
   export default {
@@ -40,6 +42,8 @@
       "c-tabs-body": TabsBody,
       "c-tabs-item": TabsItem,
       "c-tabs-pane": TabsPane,
+      "c-button": Button,
+      "c-icon": Icon
     },
     data() {
       return {

@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-head">
+  <div class="tabs-head" ref="head">
     <slot>placeholder</slot>
     <div class="container-actions">
       <slot name="actions"/>
@@ -17,7 +17,6 @@
         this.$children.forEach((child) => {
           if (child["name"] === selected) {
             this.positionLine(child)
-            console.log("head收到")
           }
         })
       })
@@ -26,8 +25,9 @@
       positionLine(child) {
         this.$nextTick(() => {
           const {width, left} = child.$el.getBoundingClientRect()
+          const left2 = this.$refs.head.getBoundingClientRect().left
           this.$refs.line["style"].width = `${width}px`
-          this.$refs.line["style"].left = `${left}px`
+          this.$refs.line["style"].left = `${left - left2}px`
         })
       }
     }
