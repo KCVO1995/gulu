@@ -8,33 +8,29 @@
   </div>
 </template>
 
-<script lang='ts'>
-  import Vue from 'vue';
-  import {Component, Inject} from 'vue-property-decorator';
-
-  @Component
-  export default class TabsHead extends Vue {
-    @Inject('eventBus') eventBus;
-
+<script>
+  export default {
+    name: "ClockTabsHead",
+    inject: ["eventBus"],
     mounted() {
-      this.eventBus.$on('update:selected', (selected) => {
+      this.eventBus.$on("update:selected", (selected) => {
         this.$children.forEach((child) => {
-          if (child['name'] === selected) {
-            this.positionLine(child);
+          if (child["name"] === selected) {
+            this.positionLine(child)
+            console.log("head收到")
           }
-        });
-      });
+        })
+      })
+    },
+    methods: {
+      positionLine(child) {
+        this.$nextTick(() => {
+          const {width, left} = child.$el.getBoundingClientRect()
+          this.$refs.line["style"].width = `${width}px`
+          this.$refs.line["style"].left = `${left}px`
+        })
+      }
     }
-
-    positionLine(child) {
-      this.$nextTick(() => {
-        const {width, left} = child.$el.getBoundingClientRect();
-        this.$refs.line['style'].width = `${width}px`;
-        this.$refs.line['style'].left = `${left}px`;
-      });
-    }
-
-
   }
 
 </script>

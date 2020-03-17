@@ -1,6 +1,6 @@
 const expect = chai.expect
 import Vue from "vue"
-import TabsItem from "../src/TabsItem"
+import TabsItem from "../src/tabs/TabsItem"
 
 Vue.config.productionTip = false
 Vue.config.devtools = false
@@ -11,8 +11,9 @@ describe("TabsItem", () => {
     expect(TabsItem).exist
   })
   describe("props", () => {
+    const Constrctor = Vue.extend(TabsItem)
     it("接受 name", () => {
-      const vm = new TabsItem({
+      const vm = new Constrctor({
         propsData: {
           name: "hi"
         }
@@ -21,7 +22,7 @@ describe("TabsItem", () => {
     })
     it("接受 name", () => {
       const callback = sinon.fake()
-      const vm = new TabsItem({
+      const vm = new Constrctor({
         propsData: {
           disabled: true
         }
