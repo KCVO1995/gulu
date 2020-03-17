@@ -25,7 +25,7 @@
     },
 
     mounted() {
-      this.eventBus.$on("update:selectedArray", selected => {
+      this.eventBus.$on("update:selected", selected => {
         this.open = selected.indexOf(this.title) >= 0
       })
     },
