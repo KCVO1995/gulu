@@ -1,8 +1,6 @@
 <template>
   <div class="col" :class="colClass" :style="gutterStyle">
-    <div style="border: 1px solid green;height: 100px;">
-      <slot/>
-    </div>
+    <slot/>
   </div>
 </template>
 
