@@ -9,92 +9,109 @@
   </div>
 </template>
 
-<script lang='ts'>
-  import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
-
-  @Component
-  export default class Popover extends Vue {
-    @Prop({default: 'top'}) position?: 'top' | 'bottom' | 'left' | 'right';
-    @Prop({default: 'click'}) trigger?: string;
-    hover = false;
-    visible = false;
+<script>
+  export default {
+    name: "ClockPopover",
+    props: {
+      position: {
+        type: String,
+        default: "top",
+        validator(value) {
+          return ["top", "left", "bottom", "right"].indexOf(value) >= 0
+        }
+      },
+      trigger: {
+        type: String,
+        default: "click",
+        validator(value) {
+          return ["click", "default"].indexOf(value) >= 0
+        }
+      }
+    },
+    data() {
+      return {
+        hover: false,
+        visible: false,
+      }
+    },
 
     mounted() {
-      if (this.trigger === 'click') {
-        this.$refs.popover.addEventListener('click', this.showPopover);
-      } else if (this.trigger === 'hover') {
-        this.$refs.popover.addEventListener('mouseenter', this.open);
-        this.$refs.popover.addEventListener('mouseleave', this.mouseleave);
+      if (this.trigger === "click") {
+        this.$refs.popover.addEventListener("click", this.showPopover)
+      } else if (this.trigger === "hover") {
+        this.$refs.popover.addEventListener("mouseenter", this.open)
+        this.$refs.popover.addEventListener("mouseleave", this.mouseleave)
       }
-    }
+    },
 
     beforeDestroy() {
-      if (this.trigger === 'click') {
-        this.$refs.popover.removeEventListener('click', this.showPopover);
-      } else if (this.trigger === 'hover') {
-        this.$refs.popover.removeEventListener('mouseenter', this.open);
-        this.$refs.popover.removeEventListener('mouseleave', this.mouseleave);
+      if (this.trigger === "click") {
+        this.$refs.popover.removeEventListener("click", this.showPopover)
+      } else if (this.trigger === "hover") {
+        this.$refs.popover.removeEventListener("mouseenter", this.open)
+        this.$refs.popover.removeEventListener("mouseleave", this.mouseleave)
       }
-    }
+    },
 
-    showPopover(e) {
-      if (this.$refs.toggleWrapper.contains(e.target)) {
-        if (this.visible) {this.close();} else {this.open();}
-      }
-    }
-
-    open() {
-      this.visible = true;
-      this.$nextTick(() => {
-        if (this.trigger === 'hover') {
-          this.$refs.contentWrapper.addEventListener('mouseenter', this.over);
-          this.$refs.contentWrapper.addEventListener('mouseleave', this.close);
+    methods: {
+      showPopover(e) {
+        if (this.$refs.toggleWrapper.contains(e.target)) {
+          if (this.visible) {this.close()} else {this.open()}
         }
-        this.positionContent();
-        document.addEventListener('click', this.onClickDocument);
-      });
-    }
+      },
 
-    over() {this.hover = true;}
+      open() {
+        this.visible = true
+        this.$nextTick(() => {
+          if (this.trigger === "hover") {
+            this.$refs.contentWrapper.addEventListener("mouseenter", this.over)
+            this.$refs.contentWrapper.addEventListener("mouseleave", this.close)
+          }
+          this.positionContent()
+          document.addEventListener("click", this.onClickDocument)
+        })
+      },
 
-    close() {
-      this.visible = false;
-      document.removeEventListener('click', this.onClickDocument);
-    }
+      over() {this.hover = true},
 
-    mouseleave() {
-      setTimeout(() => {
-        if (this.hover) {
-          this.hover = false;
-          return;
+      close() {
+        this.visible = false
+        document.removeEventListener("click", this.onClickDocument)
+      },
+
+      mouseleave() {
+        setTimeout(() => {
+          if (this.hover) {
+            this.hover = false
+            return
+          }
+          this.close()
+        }, 100)
+      },
+
+      onClickDocument(e) {
+        const {popover, contentWrapper} = this.$refs
+        if (popover && popover === e.target || popover.contains(e.target)) {return}
+        if (contentWrapper && contentWrapper === e.target || contentWrapper.contains(e.target)) {return}
+        this.close()
+      },
+
+      positionContent() {
+        const contentWrapper = this.$refs.contentWrapper
+        const toggleWrapper = this.$refs.toggleWrapper
+        document.body.appendChild(contentWrapper)
+        const {top, left, width, height} = toggleWrapper.getBoundingClientRect()
+        const {height: contentHeight} = contentWrapper.getBoundingClientRect()
+        const position = {
+          top: {top: top + scrollY, left: left + scrollX}, bottom: {top: top + height + scrollY, left: left + scrollX},
+          left: {top: top + scrollY - (contentHeight - height) / 2, left: left + scrollX},
+          right: {top: top + scrollY - (contentHeight - height) / 2, left: left + width + scrollX},
         }
-        this.close();
-      }, 100);
+        contentWrapper["style"].top = position[this.position].top + "px"
+        contentWrapper["style"].left = position[this.position].left + "px"
+      },
     }
 
-    onClickDocument(e) {
-      const {popover, contentWrapper} = this.$refs;
-      if (popover && popover === e.target || popover.contains(e.target)) {return;}
-      if (contentWrapper && contentWrapper === e.target || contentWrapper.contains(e.target)) {return;}
-      this.close();
-    }
-
-
-    positionContent() {
-      const contentWrapper = this.$refs.contentWrapper as Node;
-      const toggleWrapper = this.$refs.toggleWrapper as Node;
-      document.body.appendChild(contentWrapper);
-      const {top, left, width, height} = toggleWrapper.getBoundingClientRect();
-      const {height: contentHeight} = contentWrapper.getBoundingClientRect();
-      const position = {
-        top: {top: top + scrollY, left: left + scrollX}, bottom: {top: top + height + scrollY, left: left + scrollX},
-        left: {top: top + scrollY - (contentHeight - height) / 2, left: left + scrollX},
-        right: {top: top + scrollY - (contentHeight - height) / 2, left: left + width + scrollX},
-      };
-      contentWrapper['style'].top = position[this.position].top + 'px';
-      contentWrapper['style'].left = position[this.position].left + 'px';
-    }
   }
 
 </script>
