@@ -9,28 +9,34 @@
   </div>
 </template>
 
-<script lang='ts'>
-  import Vue from 'vue';
-  import {Component, Inject, Prop} from 'vue-property-decorator';
-
-  @Component
-  export default class CollapseItem extends Vue {
-    @Inject() eventBus;
-    @Prop(String) title: string | undefined;
-    open = false;
+<script>
+  export default {
+    inject: ["eventBus"],
+    props: {
+      title: {
+        type: String,
+        require: true
+      }
+    },
+    data() {
+      return {
+        open: false
+      }
+    },
 
     mounted() {
-      this.eventBus.$on('update:selectedArray', selectedArray => {
-        this.open = selectedArray.indexOf(this.title) >= 0;
-      });
+      this.eventBus.$on("update:selectedArray", selectedArray => {
+        this.open = selectedArray.indexOf(this.title) >= 0
+      })
+    },
 
-    }
-
-    toggle() {
-      if (this.open) {
-        this.eventBus && this.eventBus.$emit('update:removeSelectedArray', this.title);
-      } else {
-        this.eventBus && this.eventBus.$emit('update:addSelectedArray', this.title);
+    methods: {
+      toggle() {
+        if (this.open) {
+          this.eventBus && this.eventBus.$emit("update:removeSelectedArray", this.title)
+        } else {
+          this.eventBus && this.eventBus.$emit("update:addSelectedArray", this.title)
+        }
       }
     }
   }

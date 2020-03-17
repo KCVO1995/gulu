@@ -15,8 +15,8 @@ import TabsBody from "./tabs/TabsBody"
 import TabsItem from "./tabs/TabsItem"
 import TabsPane from "./tabs/TabsPane"
 import Popover from "./Popover"
-import Collapse from "./Collapse"
-import CollapseItem from "./CollapseItem"
+import Collapse from "./collapse/Collapse"
+import CollapseItem from "./collapse/CollapseItem"
 import plugin from "./plugin"
 
 Vue.component("c-button", Button)
